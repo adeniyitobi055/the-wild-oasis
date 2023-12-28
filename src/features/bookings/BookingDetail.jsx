@@ -13,7 +13,6 @@ import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../ui/Modal";
-import { deleteBooking } from "../../services/apiBookings";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { HiTrash } from "react-icons/hi2";
 import useDeleteBooking from "./useDeleteBooking";
