@@ -28,7 +28,7 @@ To get started with this project follow these steps:
 ## RUN THE PROJECT
 
 ```
-npm start
+npm run dev
 ```
 
 Runs the app in the development mode.
