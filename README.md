@@ -33,7 +33,7 @@ npm run dev
 
 Runs the app in the development mode.
 
-**open http://localhost:300 to view it in your browser.**
+**open http://localhost:5173 to view it in your browser.**
 The page will reload when you make changes, and any lint errors will be displayed in the console.
 
 ### Building for Production
