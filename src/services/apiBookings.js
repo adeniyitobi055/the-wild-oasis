@@ -15,7 +15,7 @@ export async function createBooking(newBooking) {
 
   const createdGuest = await createGuest(guestData);
 
-  console.log("created guest:", createdGuest);
+  // console.log("created guest:", createdGuest);
 
   const guestId = createdGuest.id;
 
