@@ -16,7 +16,7 @@ const StyledModal = styled.div`
   transition: all 0.5s;
   scroll-behavior: smooth;
   overflow-y: auto;
-  max-height: 810px;
+  max-height: 630px;
 `;
 
 const Overlay = styled.div`
