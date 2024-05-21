@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 const StyledSelect = styled.select`
   font-size: 1.4rem;
-  padding: 0.8rem 1.2rem;
+  padding: 0.8rem 1.5rem;
+  width: 25em;
   border: 1px solid
     ${(props) =>
       props.type === "white"

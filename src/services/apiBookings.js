@@ -1,6 +1,96 @@
+import { isFuture, isPast, isToday } from "date-fns";
 import { PAGE_SIZE } from "../utils/constants";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
+import { createGuest } from "./apiGuests";
+
+export async function createBooking(newBooking) {
+  const guestData = {
+    fullName: newBooking.fullName,
+    email: newBooking.email,
+    nationality: newBooking.nationality,
+    nationalID: newBooking.nationalID,
+    countryFlag: newBooking.countryFlag,
+  };
+
+  const createdGuest = await createGuest(guestData);
+
+  console.log("created guest:", createdGuest);
+
+  const guestId = createdGuest.id;
+
+  if (!guestId) {
+    throw new Error("Guest ID is undefined");
+  }
+
+  const { data: cabinData, error: cabinError } = await supabase
+    .from("cabins")
+    .select("id")
+    .eq("name", newBooking.cabin)
+    .single();
+
+  if (cabinError) {
+    console.error(cabinError);
+    throw new Error("Error fetching cabinId");
+  }
+
+  if (!cabinData) {
+    throw new Error("Cabin not found");
+  }
+
+  const cabinId = cabinData.id;
+
+  let status;
+  if (
+    isPast(new Date(newBooking.endDate)) &&
+    !isToday(new Date(newBooking.endDate))
+  )
+    status = "checked-out";
+  if (
+    isFuture(new Date(newBooking.startDate)) ||
+    isToday(new Date(newBooking.startDate))
+  )
+    status = "unconfirmed";
+  if (
+    (isFuture(new Date(newBooking.endDate)) ||
+      isToday(new Date(newBooking.endDate))) &&
+    isPast(new Date(newBooking.startDate)) &&
+    !isToday(new Date(newBooking.startDate))
+  )
+    status = "checked-in";
+
+  // let isPaid = false;
+
+  const { data, error } = await supabase
+    .from("bookings")
+    .insert([
+      {
+        // ...createdGuest,
+        startDate: newBooking.startDate,
+        endDate: newBooking.endDate,
+        cabinPrice: newBooking.cabinPrice,
+        extrasPrice: newBooking.extrasPrice,
+        totalPrice: newBooking.totalPrice,
+        cabinId: cabinId,
+        guestId: guestId,
+        numGuests: newBooking.numGuests,
+        numNights: newBooking.numNights,
+        status: status,
+        observations: newBooking.observations,
+        hasBreakfast: newBooking.hasBreakfast,
+        isPaid: newBooking.isPaid,
+      },
+    ])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be created");
+  }
+
+  return data;
+}
 
 export async function getBookings({ filter, sortBy, page }) {
   let query = supabase
@@ -130,3 +220,27 @@ export async function deleteBooking(id) {
   }
   return data;
 }
+
+// const guestData = {
+//   fullName: newBooking.fullName,
+//   email: newBooking.email,
+//   nationality: newBooking.nationality,
+//   nationalID: newBooking.nationalID,
+// };
+
+// const { data: createdGuest, error: guestError } = await createGuest(
+//   guestData
+// );
+
+// if (guestError) {
+//   console.error(guestError);
+//   throw new Error("Error creating guest");
+// }
+
+// console.log("created guest:", createdGuest);
+
+// const guestId = createdGuest.id;
+
+// if (!guestId) {
+//   throw new Error("Guest ID is undefined");
+// }
