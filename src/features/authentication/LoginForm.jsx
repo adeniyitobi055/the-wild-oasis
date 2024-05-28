@@ -17,6 +17,10 @@ function LoginForm() {
   const { login, isLoading } = useLogin();
   // const { isLoading: isSignup } = useSignup();
 
+  function disabled() {
+    return !email && !password;
+  }
+
   // const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -64,7 +68,7 @@ function LoginForm() {
         />
       </FormRowVertical>
       <FormRowVertical>
-        <Button size="large" disabled={isLoading}>
+        <Button size="large" disabled={isLoading || disabled()}>
           {!isLoading ? "Login" : <SpinnerMini />}
         </Button>
       </FormRowVertical>
