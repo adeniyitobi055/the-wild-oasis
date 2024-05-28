@@ -18,7 +18,7 @@ function LoginForm() {
   // const { isLoading: isSignup } = useSignup();
 
   function disabled() {
-    return !email && !password;
+    return !email || !password;
   }
 
   // const navigate = useNavigate();
