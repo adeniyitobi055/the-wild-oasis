@@ -22,6 +22,10 @@ const Form = styled.form`
     
   overflow: hidden;
   font-size: 1.4rem;
+
+  /* &:has(button) {
+    padding-right: 2rem;
+  } */
 `;
 
 Form.defaultProps = {

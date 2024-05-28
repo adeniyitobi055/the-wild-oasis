@@ -17,6 +17,22 @@ import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
+// import styled from "styled-components";
+
+// const Main = styled.main`
+//   background-color: var(--color-grey-50);
+//   padding: 4rem 4.8rem 6.4rem;
+//   overflow: auto;
+//   height: 100vh;
+// `;
+
+// const Container = styled.div`
+//   max-width: 120rem;
+//   margin: 0 auto;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 3.2rem;
+// `;
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +71,16 @@ function App() {
             </Route>
 
             <Route path="login" element={<Login />} />
+            {/* <Route
+              path="createAccount"
+              element={
+                <Main>
+                  <Container>
+                    <Users />
+                  </Container>
+                </Main>
+              }
+            /> */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

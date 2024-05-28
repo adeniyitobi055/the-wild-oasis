@@ -4,6 +4,7 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSignup } from "./useSignup";
+// import { useNavigate } from "react-router-dom";
 
 // Email regex: /\S+@\S+\.\S+/
 
@@ -11,6 +12,8 @@ function SignupForm() {
   const { signup, isLoading } = useSignup();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
+
+  // const navigate = useNavigate();
 
   function onSubmit({ fullName, email, password }) {
     signup(
@@ -20,6 +23,10 @@ function SignupForm() {
       }
     );
   }
+
+  // function handleCancel(e) {
+  //   navigate("/login");
+  // }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
