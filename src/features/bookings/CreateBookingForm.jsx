@@ -117,8 +117,11 @@ function CreateBookingForm({ onCloseModal }) {
           name: country.name.common,
           flag: country.flags.svg,
         }));
+        const sortedCountries = countryData.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
         // console.log(countryData);
-        setCountries(countryData);
+        setCountries(sortedCountries);
         // console.log("flags", flag);
       })
       .catch((error) => console.log("Error fetching data:", error));
